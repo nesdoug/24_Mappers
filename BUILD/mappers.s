@@ -450,7 +450,7 @@ _which_chr:
 ;
 	jsr     _ppu_off
 ;
-; pal_bg(pal_apple); // load the palette, this can be done any time, even with rendering on
+; pal_bg(pal_apple); // load the palette
 ;
 	lda     #<(_pal_apple)
 	ldx     #>(_pal_apple)
@@ -505,7 +505,7 @@ L018C:	jsr     _ppu_wait_nmi
 	bcc     L01A8
 	stx     _which_chr
 ;
-; pal_bg(palettes[which_chr]);
+; pal_bg(palettes[which_chr]); // change the bg palette
 ;
 L01A8:	lda     _which_chr
 	asl     a
@@ -524,7 +524,7 @@ L01A7:	adc     #<(_palettes)
 	lda     (ptr1),y
 	jsr     _pal_bg
 ;
-; POKE(bus_conflict_fix+which_chr, which_chr);
+; POKE(bus_conflict_fix+which_chr, which_chr); // change the tileset
 ;
 	lda     _which_chr
 	clc
